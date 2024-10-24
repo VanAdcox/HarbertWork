@@ -1,0 +1,11 @@
+Student ID,Date,Course,Status
+12345,8/1/24,CS-Apps,Absent
+12345,8/1/24,CS-Principles,Tardy
+24681,8/3/24,Algebra II,Absent
+35792,8/6/24,Chemistry,Absent
+12345,8/10/24,CS-Apps,Absent
+12345,8/10/24,CS-Principles,Absent
+24681,8/15/24,CS-Apps,Tardy
+24681,8/15/24,CS-Principles,Absent
+35792,8/21/24,CS-Apps,Absent
+35792,8/21/24,Chemistry,Tardy

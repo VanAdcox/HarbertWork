@@ -1,0 +1,14 @@
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\bin\Debug\net8.0\InheritenceTest.exe
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\bin\Debug\net8.0\InheritenceTest.deps.json
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\bin\Debug\net8.0\InheritenceTest.runtimeconfig.json
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\bin\Debug\net8.0\InheritenceTest.dll
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\bin\Debug\net8.0\InheritenceTest.pdb
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.AssemblyInfoInputs.cache
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.AssemblyInfo.cs
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.csproj.CoreCompileInputs.cache
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.dll
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\refint\InheritenceTest.dll
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.pdb
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\InheritenceTest.genruntimeconfig.cache
+C:\Users\da1035002\Desktop\csProj\InheritenceTest\obj\Debug\net8.0\ref\InheritenceTest.dll
