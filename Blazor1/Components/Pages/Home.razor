@@ -1,4 +1,5 @@
 ﻿@page "/"
+@page "/{rowsDisplayed:int?}"
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
@@ -45,12 +46,14 @@ else {
 </table>
 
 @code {
+	[Parameter]
+	public int rowsDisplayed {get; set;}
 	private List<int> numbers = new List<int>();
 
 	protected override void OnInitialized()
 	{
-		int randnum = Random.Shared.Next(1,10);
-		for(int i = 0; i < randnum; i++) {
+		if(rowsDisplayed==0) { return; }
+		for(int i = 0; i < rowsDisplayed; i++) {
 			numbers.Add(Random.Shared.Next(1,50));
 		}
 	}
