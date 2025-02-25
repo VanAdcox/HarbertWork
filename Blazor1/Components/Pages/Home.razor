@@ -13,7 +13,7 @@ Welcome to your new app.
 
 <Counter IncrementAmount="@RandoNum()" />
 
-<button type="button" @onclick="SetTrue">What's today</button>
+<button type="button" @onclick="() => isClicked = true">What's today</button>
 
 @if (isClicked)
 {
@@ -44,7 +44,25 @@ else {
 	}
 </table>
 
+
+<h2 style="@currentColor" @mouseenter="nameEnter" @mouseleave="nameLeave" >Name:</h2>
+<input @onchange="hitEnter">
+<p>@name</p>
+
+<h2>Address:</h2>
+<input @oninput="onInput">
+<p>@address</p>
 @code {
+	string name = "";
+	string address = "";
+	string currentColor = "background-color: red";
+
+	private void nameEnter(MouseEventArgs e) => currentColor  = "background-color: red";
+	private void nameLeave(MouseEventArgs e) => currentColor = "background-color: blue";
+
+	private void hitEnter(ChangeEventArgs e) => name = (string) e.Value!;
+	private void onInput(ChangeEventArgs e) => address = (string) e.Value!;
+
 	[Parameter]
 	public int rowsDisplayed {get; set;}
 	private List<int> numbers = new List<int>();
