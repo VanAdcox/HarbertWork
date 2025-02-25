@@ -59,3 +59,4 @@ C:\Users\van\Desktop\code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.pdb
 C:\Users\van\Desktop\code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.genruntimeconfig.cache
 C:\Users\van\Desktop\code\HarbertWork\Blazor1\obj\Debug\net8.0\ref\Blazor1.dll
 C:\Users\van\Desktop\code\HarbertWork\Blazor1\obj\Debug\net8.0\scopedcss\Components\Layout\NewLayout.razor.rz.scp.css
+C:\Users\da1035002\Desktop\csProj\Blazor1\obj\Debug\net8.0\scopedcss\Components\Layout\NewLayout.razor.rz.scp.css
