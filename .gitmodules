@@ -1,0 +1,9 @@
+[submodule "recipes"]
+	path = recipes
+	url = https://github.com/VanAdcox/Recipes.git
+[submodule "Recipes"]
+	path = Recipes
+	url = https://github.com/VanAdcox/Recipes.git
+[submodule "html_1"]
+	path = html_1
+	url = https://github.com/VanAdcox/html_1.git
