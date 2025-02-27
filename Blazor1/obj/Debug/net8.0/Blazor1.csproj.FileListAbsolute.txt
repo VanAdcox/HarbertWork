@@ -73,3 +73,4 @@ C:\Users\van\Desktop\Code\HarbertWork\Blazor1\bin\Debug\net8.0\Microsoft.Extensi
 C:\Users\van\Desktop\Code\HarbertWork\Blazor1\bin\Debug\net8.0\Microsoft.JSInterop.dll
 C:\Users\van\Desktop\Code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.csproj.AssemblyReference.cache
 C:\Users\van\Desktop\Code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.csproj.Up2Date
+C:\Users\da1035002\Desktop\csProj\Blazor1\obj\Debug\net8.0\Blazor1.csproj.AssemblyReference.cache

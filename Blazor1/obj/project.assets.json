@@ -627,24 +627,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\van\\.nuget\\packages\\": {}
+    "C:\\Users\\da1035002\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\Blazor1.csproj",
+      "projectUniqueName": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\Blazor1.csproj",
       "projectName": "Blazor1",
-      "projectPath": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\Blazor1.csproj",
-      "packagesPath": "C:\\Users\\van\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\obj\\",
+      "projectPath": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\Blazor1.csproj",
+      "packagesPath": "C:\\Users\\da1035002\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\van\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\da1035002\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -692,7 +699,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.404/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
