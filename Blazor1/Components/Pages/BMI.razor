@@ -2,18 +2,79 @@
 @rendermode InteractiveServer
 
 <PageTitle>"BMI"</PageTitle>
+<style>
+    .heightInput {
+        width: 200px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    .weightInput {
+    	font-size: 1.5rem;
+    }
+    .bmi-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+    }
+    .bmi-box {
+        width: 500px;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        background-color: white;
+    }
+</style>
 
-<h1>BMI</h1>
-<h2>Height</h2>
-<h3>Feet</h3>
-<input @onchange="feetChange">
-<h3>Inches</h3>
+<div class="bmi-container">
+	<div class="bmi-box">
+		<h1>BMI Calculator</h1>
+		<div class="mt-5">
+			<h3>Height</h3>
+			<div class="row">
+				<div class="col-md-6">
+					<label class="form-label">Feet</label>
+					<NumberInput class="heightInput" TValue="int" Value="feet" ValueExpression="() => feet" ValueChanged="(value) => feetChange(value)" Placeholder="Enter feet" />
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">Inches</label>
+					<NumberInput class="heightInput" TValue="int" Value="inches" ValueExpression="() => inches" ValueChanged="(value) => inchesChange(value)" Placeholder="Enter inches" />
+				</div>
+			</div>
+		</div>
+		<div class="mt-5">
+			<h3>Weight</h3>
+			<div class="row">
+			    <div class="col-md-12">
+				<label class="form-label">Pounds</label>
+				<NumberInput class="weightInput" TValue="int" Value="pounds" ValueExpression="() => pounds" ValueChanged="(value) => poundsChange(value)" Placeholder="Enter pounds" />
+			    </div>
+		</div>
+	    </div>
+	    <div class="mt-5">
+		    <h2>Your BMI: <u>@bmi</u></h2>
+	    </div>
+	</div>
+</div>
 
 @code {
 	int feet;
 	int inches;
+	int pounds;
+	double bmi;
 
-	private void feetChange(ChangeEventArgs e) => feet =  Int32.Parse(e.Value!);
-	private void inchesChange(ChangeEventArgs e) => inches =  Int32.Parse(e.Value!);
-
+	private void feetChange(int newFeet) {
+		feet = newFeet;
+		updateBMI();
+	}
+	private void inchesChange(int newInches) {
+		inches = newInches;
+		updateBMI();
+	}
+	private void poundsChange(int newPounds) 
+	{
+		pounds = newPounds;
+		updateBMI();
+	}
+	private void updateBMI() => bmi = Math.Round((pounds / Math.Pow((feet * 12) + inches, 2) * 703), 1);
 }
