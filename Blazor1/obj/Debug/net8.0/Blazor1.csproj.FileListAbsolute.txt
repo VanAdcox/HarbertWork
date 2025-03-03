@@ -74,3 +74,15 @@ C:\Users\van\Desktop\Code\HarbertWork\Blazor1\bin\Debug\net8.0\Microsoft.JSInter
 C:\Users\van\Desktop\Code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.csproj.AssemblyReference.cache
 C:\Users\van\Desktop\Code\HarbertWork\Blazor1\obj\Debug\net8.0\Blazor1.csproj.Up2Date
 C:\Users\da1035002\Desktop\csProj\Blazor1\obj\Debug\net8.0\Blazor1.csproj.AssemblyReference.cache
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\BlazorBootstrap.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.AspNetCore.Metadata.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\bin\Debug\net8.0\Microsoft.JSInterop.dll
+C:\Users\da1035002\Desktop\csProj\Blazor1\obj\Debug\net8.0\Blazor1.csproj.Up2Date

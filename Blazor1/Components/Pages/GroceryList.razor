@@ -1,0 +1,33 @@
+﻿@page "/list"
+@rendermode InteractiveServer
+
+<PageTitle>"Groceries"</PageTitle>
+<h3>Grocery List (@list.Count(item => !item.IsBought))</h3>
+
+<input @bind="newItemName">
+<button @onclick="AddItem">Add Item</button>
+
+<ol>
+	@foreach(var item in list) {
+		<li>
+				<input @bind="item.Name">
+				<input type=checkbox @bind="item.IsBought">
+		</li>
+	}
+</ol>
+@code {
+	List<GroceryItem> list = new List<GroceryItem>();
+	string newItemName = "";
+
+	public class GroceryItem {
+		public string Name { get; set; }
+		public bool IsBought {get; set; }
+	}
+
+	public void AddItem() {
+		if(!string.IsNullOrWhiteSpace(newItemName)) {
+			list.Add(new GroceryItem { Name = newItemName });
+			newItemName = "";
+		}
+	}
+}

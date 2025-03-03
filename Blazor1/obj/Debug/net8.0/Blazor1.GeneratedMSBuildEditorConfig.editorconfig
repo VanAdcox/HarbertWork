@@ -26,6 +26,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCTUkucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/Breakfast.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCcmVha2Zhc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,12 +42,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xGcmllbmRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/GroceryList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xHcm9jZXJ5TGlzdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/ToDo.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xUb0RvLnJhem9y
+[C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/Upload.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xVcGxvYWQucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/da1035002/Desktop/csProj/Blazor1/Components/Pages/Weather.razor]

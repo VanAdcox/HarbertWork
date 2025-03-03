@@ -1,27 +1,27 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Blazor1.bundle.scp.css",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\Blazor1.bundle.scp.css",
       "PackagePath": "staticwebassets\\Blazor1.bundle.scp.css"
     },
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\wwwroot\\app.css",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\wwwroot\\app.css",
       "PackagePath": "staticwebassets\\app.css"
     },
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\wwwroot\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\van\\Desktop\\Code\\HarbertWork\\Blazor1\\wwwroot\\max.JPG",
+      "Id": "C:\\Users\\da1035002\\Desktop\\csProj\\Blazor1\\wwwroot\\max.JPG",
       "PackagePath": "staticwebassets\\max.JPG"
     },
     {

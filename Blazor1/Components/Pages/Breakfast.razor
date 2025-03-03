@@ -1,0 +1,42 @@
+﻿@page "/breakfast"
+@rendermode InteractiveServer
+
+<PageTitle>Breakfast</PageTitle>
+
+<h1>Breakfast</h1>
+
+<button @onclick="PourCoffee">Pour Coffee</button>
+<p>Coffee status: @coffeeStatus</p>
+
+<button @onclick="FryEggs">Fry Eggs</button>
+<p>Egg Status: @eggStatus</p>
+
+<button @onclick="FryEggsAsync">Fry Eggs Async</button>
+<p>Egg Status: @eggStatusAsync</p>
+
+
+
+@code {
+	string coffeeStatus = "";
+	string eggStatus = "";
+	string eggStatusAsync = "";
+
+
+	private void PourCoffee() => coffeeStatus = @DateTime.Now.ToString("hh:mm:ss");
+	private void FryEggs() {
+		eggStatus = "";
+		eggStatus = "cooking the eggs...";
+		Task.Delay(3000).Wait();
+		eggStatus = "cooking the eggs...";
+		Task.Delay(3000).Wait();
+		eggStatus = "put eggs on plate";
+	}
+	private async void FryEggsAsync() {
+		eggStatusAsync = "";
+		eggStatusAsync = "cooking the eggs...";
+		await Task.Delay(3000);
+		eggStatusAsync = "cooking the eggs...";
+		await Task.Delay(3000);
+		eggStatusAsync = "put eggs on plate";
+	}
+}
