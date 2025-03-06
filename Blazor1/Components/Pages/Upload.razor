@@ -12,11 +12,25 @@
 
 <h2>Selected file</h2>
 <div>
-    <div>File name: @FileName</div>
+	<p>File name: @FileName</p>
+	<p>Rows: @readerEvents.Count()</p>
 </div>
-@foreach (var row in readerEvents) {
-	<p>@row.ToString();</p>
-}
+<table class="table">
+	<tr>
+		<th>Dev Id</th>
+		<th>Machine</th>
+		<th>Reader Desc</th>
+		<th>Count</th>
+	</tr>
+	@foreach (var reader in readerDict) {
+		<tr>
+			<td>@reader.Key.Item1</td>
+			<td>@reader.Key.Item2</td>
+			<td>@reader.Value[0].ReaderDesc</td>
+			<td>@reader.Value.Count()</td>
+		</tr>
+	}
+</table>
 @if (!string.IsNullOrEmpty(ErrorMessage))
 {
     <div>Error: @ErrorMessage</div>
@@ -26,6 +40,7 @@
     public string FileName { get; set; } = "";
     public string ErrorMessage { get; set; } = "";
     private List<ReaderEvent> readerEvents = new List<ReaderEvent>();
+    private Dictionary<(int, int), List<ReaderEvent>> readerDict = new Dictionary<(int, int), List<ReaderEvent>>();
 
     public async Task FileUploaded(InputFileChangeEventArgs e)
     {
@@ -37,9 +52,15 @@
 
             try
             {
-                await using var stream = browserFile.OpenReadStream(1200542);
-		using var sr = new StreamReader(stream);
 
+		var fileStream = browserFile.OpenReadStream(long.MaxValue);
+
+		var destinationStream = new FileStream(FileName, FileMode.Create);
+                await fileStream.CopyToAsync(destinationStream);
+                destinationStream.Close();
+
+                await using var stream = browserFile.OpenReadStream(long.MaxValue);
+		using var sr = new StreamReader(stream);
 		readerEvents = new List<ReaderEvent>();
 
 		await sr.ReadLineAsync();
@@ -47,18 +68,19 @@
 		string line;
 		while((line = await sr.ReadLineAsync()) != null) {
 			string[] values = line.Split(',');
-			if (values.Length >= 5)
+			if (values.Length >= 6)
 			{
                             readerEvents.Add(new ReaderEvent(
                                 values[0],
                                 values[1],
                                 values[2],
-                                Convert.ToInt32(values[3].Trim('\"')),
-                                Convert.ToInt32(values[4].Trim('\"'))
+                                values[3],
+                                Convert.ToInt32(values[4]),
+                                Convert.ToInt32(values[5])
 				));
                         }
 		}
-		Console.WriteLine(readerEvents.Count());
+		readerDict = DataToDictionary(readerEvents);
             }
             catch (Exception exception)
             {
@@ -67,18 +89,32 @@
         }
     }
 
+    public Dictionary<(int, int), List<ReaderEvent>> DataToDictionary(List<ReaderEvent> masterlist) {
+	Dictionary<(int, int), List<ReaderEvent>> dict = new Dictionary<(int, int), List<ReaderEvent>>();
+	foreach(ReaderEvent re in masterlist) {
+		var key = (re.DevId, re.Machine);
+		if(!dict.ContainsKey(key)){
+			dict[key] = new List<ReaderEvent>();
+		}
+		dict[key].Add(re);
+	}
+	return dict;
+    }
+
 
 
     public class ReaderEvent {
 	    public string EventTimeUTC { get; set; }
+	    public string Location { get; set; }
 	    public string ReaderDesc { get; set; }
 	    public string IdHash { get; set; }
 	    public int DevId { get; set; }
 	    public int Machine { get; set; }
 
-	    public ReaderEvent(string eventTimeUTC, string readerDesc, string idHash, int devId, int machine)
+	    public ReaderEvent(string eventTimeUTC, string location, string readerDesc, string idHash, int devId, int machine)
 	    {
 		EventTimeUTC = eventTimeUTC;
+		Location = location;
 		ReaderDesc = readerDesc;
 		IdHash = idHash;
 		DevId = devId;
