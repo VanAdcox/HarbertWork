@@ -15,56 +15,57 @@
     </ActivatorContent>
 </MudFileUpload>
 
-<h2>Selected file</h2>
-<p>@FileName</p>
-<p>Total Readers: @readerDict.Count</p>
-<p>Total Records: @readerEvents.Count</p>
+@if(!string.IsNullOrEmpty(FileName)) {
+	<h2>Selected file</h2>
+	<p>@FileName</p>
+	<p>Total Readers: @readerDict.Count</p>
+	<p>Total Records: @readerEvents.Count</p>
 
-<MudSimpleTable Style="overflow-x: auto;">
-	<tr>
-		<th>Dev Id</th>
-		<th>Machine</th>
-		<th>Location</th>
-		<th>Reader Desc</th>
-		<th>Count</th>
-	</tr>
-	@foreach (var reader in readerDict)
+	<MudSimpleTable Style="overflow-x: auto;">
+		<tr>
+			<th>Dev Id</th>
+			<th>Machine</th>
+			<th>Location</th>
+			<th>Reader Desc</th>
+			<th>Count</th>
+		</tr>
+		@foreach (var reader in readerDict)
+		{
+				<tr>
+					<td>@reader.Key.Item1</td>
+					<td>@reader.Key.Item2</td>
+					<td>@reader.Value[0].Location</td>
+					<td>@reader.Value[0].ReaderDesc</td>
+					<td>@reader.Value.Count()</td>
+				</tr>
+		}
+	</MudSimpleTable>
+
+	<br>
+
+	<MudSimpleTable Style="overflow-x: auto;">
+		<tr>
+			<th>Day</th>
+			<th>Count</th>
+		</tr>
+		@foreach (var reader in readerDictByDay)
+		{
+				<tr>
+					<td>@reader.Key</td>
+					<td>@reader.Value.Count()</td>
+				</tr>
+		}
+	</MudSimpleTable>
+
+
+	<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350" ChartOptions="Options"></MudChart>
+
+
+	@if (!string.IsNullOrEmpty(ErrorMessage))
 	{
-			<tr>
-				<td>@reader.Key.Item1</td>
-				<td>@reader.Key.Item2</td>
-				<td>@reader.Value[0].Location</td>
-				<td>@reader.Value[0].ReaderDesc</td>
-				<td>@reader.Value.Count()</td>
-			</tr>
+			<div>Error: @ErrorMessage</div>
 	}
-</MudSimpleTable>
-
-<br>
-
-<MudSimpleTable Style="overflow-x: auto;">
-	<tr>
-		<th>Day</th>
-		<th>Count</th>
-	</tr>
-	@foreach (var reader in readerDictByDay)
-	{
-			<tr>
-				<td>@reader.Key</td>
-				<td>@reader.Value.Count()</td>
-			</tr>
-	}
-</MudSimpleTable>
-
-
-<MudChart ChartType="ChartType.Line" ChartSeries="@Series" XAxisLabels="@XAxisLabels" Width="100%" Height="350" ChartOptions="Options"></MudChart>
-
-
-@if (!string.IsNullOrEmpty(ErrorMessage))
-{
-		<div>Error: @ErrorMessage</div>
 }
-
 
 @code {
 	public string FileName { get; set; } = "";
@@ -77,15 +78,7 @@
 	private int Index = -1;
 	public ChartOptions Options = new ChartOptions();
     
-	public List<ChartSeries> Series;
-
-	protected override void OnInitialized()
-	{
-		Series = new List<ChartSeries>()
-		{
-		new ChartSeries() { Name = "Total Scans", Data = GetData() },
-		};
-	}
+	public List<ChartSeries> Series = new List<ChartSeries>();
 
 	public double[] GetData() => readerDictByDay.Values.Select(list => (double)list.Count).ToArray();
 
@@ -126,7 +119,7 @@
 				while ((line = await sr.ReadLineAsync()) != null)
 				{
 					string[] values = line.Split(',');
-					if (values.Length == 6)  // Exactly 6 columns expected
+					if (values.Length == 6)
 					{
 						readerEvents.Add(new ReaderEvent(
 							DateTime.Parse(values[0].Trim('"')),
@@ -141,11 +134,11 @@
 				readerDict = DataToDictionary(readerEvents);
 				readerDictByDay = DictByDay(readerEvents);
 				XAxisLabels = readerDictByDay.Keys.ToArray();
-				StateHasChanged();
 				Series = new List<ChartSeries>()
-			{
-				new ChartSeries() { Name = "Total Scans", Data = GetData() }
-			};
+				{
+					new ChartSeries() { Name = "Total Scans", Data = GetData() }
+				};
+				Options.InterpolationOption = InterpolationOption.NaturalSpline;
 			}
 			catch (Exception exception)
 			{
