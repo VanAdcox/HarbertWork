@@ -27,13 +27,14 @@
 		<th>Reader Desc</th>
 		<th>Count</th>
 	</tr>
-	@foreach (var reader in readerDict) {
-		<tr>
-			<td>@reader.Key.Item1</td>
-			<td>@reader.Key.Item2</td>
-			<td>@reader.Value[0].Location</td>
-			<td>@reader.Value.Count()</td>
-		</tr>
+	@foreach (var reader in readerDict)
+	{
+			<tr>
+				<td>@reader.Key.Item1</td>
+				<td>@reader.Key.Item2</td>
+				<td>@reader.Value[0].Location</td>
+				<td>@reader.Value.Count()</td>
+			</tr>
 	}
 </MudSimpleTable>
 
@@ -44,11 +45,12 @@
 		<th>Day</th>
 		<th>Count</th>
 	</tr>
-	@foreach (var reader in readerDictByDay) {
-		<tr>
-			<td>@reader.Key</td>
-			<td>@reader.Value.Count()</td>
-		</tr>
+	@foreach (var reader in readerDictByDay)
+	{
+			<tr>
+				<td>@reader.Key</td>
+				<td>@reader.Value.Count()</td>
+			</tr>
 	}
 </MudSimpleTable>
 
@@ -58,129 +60,147 @@
 
 @if (!string.IsNullOrEmpty(ErrorMessage))
 {
-	<div>Error: @ErrorMessage</div>
+		<div>Error: @ErrorMessage</div>
 }
 
 
 @code {
-    public string FileName { get; set; } = "";
-    public string ErrorMessage { get; set; } = "";
-    private List<ReaderEvent> readerEvents = new List<ReaderEvent>();
-    private Dictionary<(int, int), List<ReaderEvent>> readerDict = new Dictionary<(int, int), List<ReaderEvent>>();
-    private Dictionary<string, List<ReaderEvent>> readerDictByDay = new Dictionary<string, List<ReaderEvent>>();
+	public string FileName { get; set; } = "";
+	public string ErrorMessage { get; set; } = "";
+	private List<ReaderEvent> readerEvents = new List<ReaderEvent>();
+	private Dictionary<(int, int), List<ReaderEvent>> readerDict = new Dictionary<(int, int), List<ReaderEvent>>();
+	private Dictionary<string, List<ReaderEvent>> readerDictByDay = new Dictionary<string, List<ReaderEvent>>();
 
-    public List<ChartSeries> Series = new List<ChartSeries>();
-    public string[] XAxisLabels;
-    public ChartOptions Options = new ChartOptions();
 
-    public void UpdateSeries() {
-	    	XAxisLabels = new string[readerDictByDay.Count];
-		int i = 0;
-		foreach(var day in readerDictByDay) {
-			XAxisLabels[(int)i] = (string)day.Key;
-			Series.Add(new ChartSeries() { Name="Count", Data = day.Value.Count } );
-			i = i + 1;
-		}
-    }
+	private int Index = -1;
+	public ChartOptions Options = new ChartOptions();
+    
+	public List<ChartSeries> Series;
 
-    public async Task FileUploaded(InputFileChangeEventArgs e)
-    {
-        var browserFile = e.File;
-
-	if (browserFile == null)
+	protected override void OnInitialized()
 	{
-	    Console.WriteLine("No file received.");
-	    return;
-	}
-
-	Console.WriteLine($"Uploading file: {browserFile.Name}, Size: {browserFile.Size} bytes");
-
-        if (browserFile != null)
-        {
-            FileName = browserFile.Name;
-
-            try
-            {
-
-	    	// copy to disc
-		var fileStream = browserFile.OpenReadStream(long.MaxValue);
-		var destinationStream = new FileStream(FileName, FileMode.Create);
-                await fileStream.CopyToAsync(destinationStream);
-                destinationStream.Close();
-
-		// open new stream to process from
-                await using var stream = browserFile.OpenReadStream(long.MaxValue);
-		using var sr = new StreamReader(stream);
-		readerEvents = new List<ReaderEvent>();
-		await sr.ReadLineAsync();
-
-		string line;
-		while((line = await sr.ReadLineAsync()) != null) {
-			string[] values = line.Split(',');
-			if (values.Length <= 6)
-			{
-                            readerEvents.Add(new ReaderEvent(
-                                DateTime.Parse(values[0].Trim('"')),
-                                values[1].Trim('"'),
-                                values[2].Trim('"'),
-                                Convert.ToInt32(values[3].Trim('"')),
-                                Convert.ToInt32(values[4].Trim('"'))
-				));
-                        }
-		}
-		readerDict = DataToDictionary(readerEvents);
-		readerDictByDay = DictByDay(readerEvents);
-            }
-            catch (Exception exception)
-            {
-                ErrorMessage = exception.Message;
-            }
-        }
-    }
-
-    public Dictionary<(int, int), List<ReaderEvent>> DataToDictionary(List<ReaderEvent> masterlist) {
-	Dictionary<(int, int), List<ReaderEvent>> dict = new Dictionary<(int, int), List<ReaderEvent>>();
-	foreach(ReaderEvent re in masterlist) {
-		var key = (re.DevId, re.Machine);
-		if(!dict.ContainsKey(key)){
-			dict[key] = new List<ReaderEvent>();
-		}
-		dict[key].Add(re);
-	}
-	return dict;
-    }
-    public Dictionary<string, List<ReaderEvent>> DictByDay (List<ReaderEvent> masterlist) {
-	Dictionary<string, List<ReaderEvent>> dict = new Dictionary<string, List<ReaderEvent>>();
-
-	foreach(ReaderEvent re in masterlist) {
-		var key = re.EventTimeUTC.ToString("D").Split(",")[0];
-		if(!dict.ContainsKey(key)){
-			dict[key] = new List<ReaderEvent>();
-		}
-		dict[key].Add(re);
-	}
-	return dict;
-    }
-
-    public class ReaderEvent {
-	    public DateTime EventTimeUTC { get; set; }
-	    public string Location { get; set; }
-	    public string IdHash { get; set; }
-	    public int DevId { get; set; }
-	    public int Machine { get; set; }
-
-	    public ReaderEvent(DateTime eventTimeUTC,  string readerDesc, string idHash, int devId, int machine)
-	    {
-		EventTimeUTC = eventTimeUTC;
-		Location = readerDesc;
-		IdHash = idHash;
-		DevId = devId;
-		Machine = machine;
-	    }
-	    public override string ToString()
+		Series = new List<ChartSeries>()
 		{
-		    return $"EventTimeUTC: {EventTimeUTC.ToString("D").Split(",")[0]}, ReaderDesc: {Location}, IdHash: {IdHash}, DevId: {DevId}, Machine: {Machine}";
+		new ChartSeries() { Name = "Total Scans", Data = GetData() },
+		};
+	}
+
+	public double[] GetData() => readerDictByDay.Values.Select(list => (double)list.Count).ToArray();
+
+	public string[] XAxisLabels = Array.Empty<string>();
+
+	public async Task FileUploaded(InputFileChangeEventArgs e)
+	{
+		var browserFile = e.File;
+
+		if (browserFile == null)
+		{
+			Console.WriteLine("No file received.");
+			return;
 		}
 
-    }
+		Console.WriteLine($"Uploading file: {browserFile.Name}, Size: {browserFile.Size} bytes");
+
+		if (browserFile != null)
+		{
+			FileName = browserFile.Name;
+
+			try
+			{
+
+				// copy to disc
+				var fileStream = browserFile.OpenReadStream(long.MaxValue);
+				var destinationStream = new FileStream(FileName, FileMode.Create);
+				await fileStream.CopyToAsync(destinationStream);
+				destinationStream.Close();
+
+				// open new stream to process from
+				await using var stream = browserFile.OpenReadStream(long.MaxValue);
+				using var sr = new StreamReader(stream);
+				readerEvents = new List<ReaderEvent>();
+				await sr.ReadLineAsync();
+
+				string line;
+				while ((line = await sr.ReadLineAsync()) != null)
+				{
+					string[] values = line.Split(',');
+					if (values.Length == 6)  // Exactly 6 columns expected
+					{
+						readerEvents.Add(new ReaderEvent(
+							DateTime.Parse(values[0].Trim('"')),
+							values[2].Trim('"'),
+							values[3].Trim('"'),
+							Convert.ToInt32(values[4].Trim('"')),
+							Convert.ToInt32(values[5].Trim('"'))
+						));
+					}
+				}
+				readerDict = DataToDictionary(readerEvents);
+				readerDictByDay = DictByDay(readerEvents);
+				XAxisLabels = readerDictByDay.Keys.ToArray();
+				StateHasChanged();
+				Series = new List<ChartSeries>()
+			{
+				new ChartSeries() { Name = "Total Scans", Data = GetData() }
+			};
+			}
+			catch (Exception exception)
+			{
+				ErrorMessage = exception.Message;
+			}
+		}
+	}
+
+	public Dictionary<(int, int), List<ReaderEvent>> DataToDictionary(List<ReaderEvent> masterlist)
+	{
+		Dictionary<(int, int), List<ReaderEvent>> dict = new Dictionary<(int, int), List<ReaderEvent>>();
+		foreach (ReaderEvent re in masterlist)
+		{
+			var key = (re.DevId, re.Machine);
+			if (!dict.ContainsKey(key))
+			{
+				dict[key] = new List<ReaderEvent>();
+			}
+			dict[key].Add(re);
+		}
+		return dict;
+	}
+	public Dictionary<string, List<ReaderEvent>> DictByDay(List<ReaderEvent> masterlist)
+	{
+		Dictionary<string, List<ReaderEvent>> dict = new Dictionary<string, List<ReaderEvent>>();
+
+		foreach (ReaderEvent re in masterlist)
+		{
+			var key = re.EventTimeUTC.ToString("D").Split(",")[0];
+			if (!dict.ContainsKey(key))
+			{
+				dict[key] = new List<ReaderEvent>();
+			}
+			dict[key].Add(re);
+		}
+		return dict;
+	}
+
+	public class ReaderEvent
+	{
+		public DateTime EventTimeUTC { get; set; }
+		public string Location { get; set; }
+		public string IdHash { get; set; }
+		public int DevId { get; set; }
+		public int Machine { get; set; }
+
+		public ReaderEvent(DateTime eventTimeUTC, string readerDesc, string idHash, int devId, int machine)
+		{
+			EventTimeUTC = eventTimeUTC;
+			Location = readerDesc;
+			IdHash = idHash;
+			DevId = devId;
+			Machine = machine;
+		}
+		public override string ToString()
+		{
+			return $"EventTimeUTC: {EventTimeUTC.ToString("D").Split(",")[0]}, ReaderDesc: {Location}, IdHash: {IdHash}, DevId: {DevId}, Machine: {Machine}";
+		}
+
+	}
 }
