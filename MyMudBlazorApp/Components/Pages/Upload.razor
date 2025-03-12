@@ -24,6 +24,7 @@
 	<tr>
 		<th>Dev Id</th>
 		<th>Machine</th>
+		<th>Location</th>
 		<th>Reader Desc</th>
 		<th>Count</th>
 	</tr>
@@ -33,6 +34,7 @@
 				<td>@reader.Key.Item1</td>
 				<td>@reader.Key.Item2</td>
 				<td>@reader.Value[0].Location</td>
+				<td>@reader.Value[0].ReaderDesc</td>
 				<td>@reader.Value.Count()</td>
 			</tr>
 	}
@@ -128,6 +130,7 @@
 					{
 						readerEvents.Add(new ReaderEvent(
 							DateTime.Parse(values[0].Trim('"')),
+							values[1].Trim('"'),
 							values[2].Trim('"'),
 							values[3].Trim('"'),
 							Convert.ToInt32(values[4].Trim('"')),
@@ -185,21 +188,23 @@
 	{
 		public DateTime EventTimeUTC { get; set; }
 		public string Location { get; set; }
+		public string ReaderDesc { get; set; }
 		public string IdHash { get; set; }
 		public int DevId { get; set; }
 		public int Machine { get; set; }
 
-		public ReaderEvent(DateTime eventTimeUTC, string readerDesc, string idHash, int devId, int machine)
+		public ReaderEvent(DateTime eventTimeUTC, string location, string readerDesc, string idHash, int devId, int machine)
 		{
 			EventTimeUTC = eventTimeUTC;
-			Location = readerDesc;
+			Location = location;
+			ReaderDesc = readerDesc;
 			IdHash = idHash;
 			DevId = devId;
 			Machine = machine;
 		}
 		public override string ToString()
 		{
-			return $"EventTimeUTC: {EventTimeUTC.ToString("D").Split(",")[0]}, ReaderDesc: {Location}, IdHash: {IdHash}, DevId: {DevId}, Machine: {Machine}";
+			return $"EventTimeUTC: {EventTimeUTC.ToString("D").Split(",")[0]}, Location: {Location}, ReaderDesc: {ReaderDesc}, IdHash: {IdHash}, DevId: {DevId}, Machine: {Machine}";
 		}
 
 	}
