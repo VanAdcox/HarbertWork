@@ -11,11 +11,10 @@
                    Color="Color.Primary"
                    StartIcon="@Icons.Material.Filled.CloudUpload">
             Upload CSV
-        </MudButton>
+         </MudButton>
     </ActivatorContent>
 </MudFileUpload>
-
-@if(!string.IsNullOrEmpty(FileName)) {
+@if((readerEvents != null) && (readerEvents.Any())) {
 	<h2>Selected file</h2>
 	<p>@FileName</p>
 	<p>Total Readers: @readerDict.Count</p>
@@ -65,24 +64,21 @@
 	{
 			<div>Error: @ErrorMessage</div>
 	}
-}
 
+}
 @code {
 	public string FileName { get; set; } = "";
 	public string ErrorMessage { get; set; } = "";
-	private List<ReaderEvent> readerEvents = new List<ReaderEvent>();
-	private Dictionary<(int, int), List<ReaderEvent>> readerDict = new Dictionary<(int, int), List<ReaderEvent>>();
-	private Dictionary<string, List<ReaderEvent>> readerDictByDay = new Dictionary<string, List<ReaderEvent>>();
+	private static List<ReaderEvent> readerEvents = new List<ReaderEvent>();
+	private static Dictionary<(int, int), List<ReaderEvent>> readerDict = new Dictionary<(int, int), List<ReaderEvent>>();
+	private static Dictionary<string, List<ReaderEvent>> readerDictByDay = new Dictionary<string, List<ReaderEvent>>();
 
 
-	private int Index = -1;
-	public ChartOptions Options = new ChartOptions();
-    
-	public List<ChartSeries> Series = new List<ChartSeries>();
+	public static ChartOptions Options = new ChartOptions();
+	public static List<ChartSeries> Series = new List<ChartSeries>();
+	public static string[] XAxisLabels = Array.Empty<string>();
 
 	public double[] GetData() => readerDictByDay.Values.Select(list => (double)list.Count).ToArray();
-
-	public string[] XAxisLabels = Array.Empty<string>();
 
 	public async Task FileUploaded(InputFileChangeEventArgs e)
 	{
@@ -138,7 +134,10 @@
 				{
 					new ChartSeries() { Name = "Total Scans", Data = GetData() }
 				};
-				Options.InterpolationOption = InterpolationOption.NaturalSpline;
+				//NaturalSpline needs atleast 4 data points
+				if(readerEvents.Count > 3) {
+					Options.InterpolationOption = InterpolationOption.NaturalSpline;
+				}
 			}
 			catch (Exception exception)
 			{
